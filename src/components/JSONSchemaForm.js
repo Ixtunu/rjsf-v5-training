@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
+import axios from "axios";
 import Form from "@rjsf/core";
 import validator from "@rjsf/validator-ajv8";
 import "./JSONSchemaForm.css";
@@ -181,28 +182,45 @@ const widgets = {
   RadioWidget: RadioWidget
 };
 
-const log = (formData) => console.log(formData);
+const handleSubmit = ({ formData }, formRef) => {
+  console.log('Submitted formData:', formData);
+  axios.post('http://localhost:3001/api/data', formData)
+    .then(response => {
+      console.log('Data submitted successfully:', response.data);
+      alert('Data submitted successfully!');
+      formRef.current.reset();
+    })
+    .catch(error => {
+      console.error('Failed to submit data:', error);
+      alert('Failed to submit data.');
+    });
+};
 
-const JSONSchemaForm = () => (
-  <div className="form-container">
-    <Form
-      schema={schema}
-      uiSchema={uiSchema}
-      widgets={widgets}
-      onSubmit={({ formData }) => log(formData)}
-      validator={validator}
-      templates={{
-        ButtonTemplates: {
-          SubmitButton: () => (
-            <button type="submit" className="custom-submit-button">
-              送信
-            </button>
-          )
-        },
-        ErrorListTemplate: () => null
-      }}
-    />
-  </div>
-);
+const JSONSchemaForm = () => {
+  const formRef = useRef(null);
+
+  return (
+    <div className="form-container">
+      <Form
+        ref={formRef}
+        schema={schema}
+        uiSchema={uiSchema}
+        widgets={widgets}
+        onSubmit={(formData) => handleSubmit(formData, formRef)}
+        validator={validator}
+        templates={{
+          ButtonTemplates: {
+            SubmitButton: () => (
+              <button type="submit" className="custom-submit-button">
+                送信
+              </button>
+            )
+          },
+          ErrorListTemplate: () => null
+        }}
+      />
+    </div>
+  );
+};
 
 export default JSONSchemaForm;

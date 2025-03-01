@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const FormHistory = () => {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    // 固定のモックデータ
+    // ダミーデータ
     const mockData = [
       {
         name: "山田 太郎",
@@ -23,9 +24,15 @@ const FormHistory = () => {
         inquiry: "テストデータ2"
       }
     ];
-    
-    // 固定データを状態に設定
-    setHistory(mockData);
+
+    axios.get('http://localhost:3001/api/data')
+      .then(response => {
+        setHistory(response.data);
+      })
+      .catch(error => {
+        console.error('Failed to fetch data from API, using mock data:', error);
+        setHistory(mockData); // ダミーデータを設定
+      });
   }, []);
 
   return (

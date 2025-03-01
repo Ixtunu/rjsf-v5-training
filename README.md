@@ -29,12 +29,17 @@ This project is a basic setup for using React JSON Schema Form v5 with React. Fo
     npm install react-router-dom
     ```
 
-6. **Install all other dependencies**:
+6. **Install Axios**:
+    ```bash
+    npm install axios
+    ```
+
+7. **Install all other dependencies**:
     ```bash
     npm install
     ```
 
-7. **Start the development server**:
+8. **Start the development server**:
     ```bash
     npm start
     ```
