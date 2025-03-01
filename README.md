@@ -24,12 +24,17 @@ This project is a basic setup for using React JSON Schema Form v5 with React. Fo
     npm install @rjsf/validator-ajv8
     ```
 
-5. **Install all other dependencies**:
+5. **Install the React Router DOM**:
+    ```bash
+    npm install react-router-dom
+    ```
+
+6. **Install all other dependencies**:
     ```bash
     npm install
     ```
 
-6. **Start the development server**:
+7. **Start the development server**:
     ```bash
     npm start
     ```

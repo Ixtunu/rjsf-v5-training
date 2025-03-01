@@ -1,12 +1,24 @@
-import React from "react";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import './App.css';
+import Navigation from './components/Navigation';
 import JSONSchemaForm from "./components/JSONSchemaForm";
+import FormHistory from './components/FormHistory';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-        <JSONSchemaForm />
-    </div>
+    <Router>
+      <header>
+        <Navigation />
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<JSONSchemaForm />} />
+          <Route path="/history" element={<FormHistory />} />
+        </Routes>
+      </main>
+    </Router>
   );
-}
+};
 
-export default App
+export default App;
